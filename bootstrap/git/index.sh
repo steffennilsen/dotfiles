@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+# git config --global init.defaultBranch
+
 function get_git() {
     if [[ ! -x "$(command -v git)" ]]; then
         local kernel_version="$(uname -v)"
