@@ -8,7 +8,7 @@ function get_git() {
         local kernel_version="$(uname -v)"
         
         # expand as needed
-        case $STR in
+        case $kernel_version in
             *"Ubuntu"*)
                 add-apt-repository ppa:git-core/ppa
                 apt update
