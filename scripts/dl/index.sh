@@ -1,10 +1,29 @@
 #!/bin/bash
 set -e
 
-if [[ -x "$(command -v curl)" && "$(command -v wget)" ]]; then
-    dir=$(dirname -- ${BASH_SOURCE[0]})
-    alias DFDL="$(DFAP $dir/dl.sh)"
+# $1 source
+# $2 out
+# wget -O "$2" "$1"
+# curl -oL "$1" > "$2"
+
+function install_wget () {
+    if [[ ! -x "$(command -v git)" ]]; then
+        local kernel_version="$(uname -v)"
+    
+        # expand as needed
+        case $kernel_version in
+            *"Ubuntu"*)
+                apt update && apt install wget
+                ;;
+            *)
+                echo "Unable to install wget" >&2
+                exit 1
+        esac
+    fi
+}
+
+if [[ -x "$(command -v wget)" ]]; then
+    echo "wget found"
 else
-    echo "Missing dependency: wget | curl" >&2
-    exit 1
+    install_wget
 fi
