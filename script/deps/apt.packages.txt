@@ -1,0 +1,13 @@
+coreutils
+gawk
+sed
+less
+nano
+unzip
+python3
+lsb-release
+wget
+curl
+software-properties-common
+zsh
+zsh-antigen

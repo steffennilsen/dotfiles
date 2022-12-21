@@ -6,12 +6,12 @@ if [[ ! -x "$(command -v apt)" ]]; then
     exit 1
 fi
 
+currdir="$(dirname -- ${BASH_SOURCE[0]})"
+files=$(grep -vE "^\s*#" "${currdir}/apt.packages.txt"  | tr "\n" " ")
+
 sudo bash<<EOF
 apt update
-apt install -y coreutils gawk sed
-apt install -y python3
-apt install -y wget curl software-properties-common
-apt install -y zsh zsh-antigen
+apt install -y "$(files)"
 EOF
 
 # ubuntu often have an old version of git
