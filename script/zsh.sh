@@ -9,5 +9,4 @@ if [[ -z "cat /etc/shells | grep $(which zsh)" ]]; then
     sudo echo "$(which zsh)" >> /etc/shells
 fi
 
-currdir="$(dirname -- ${BASH_SOURCE[0]})"
-"$currdir/antigen.zsh"
+wget "$HOME/bin/antigen.zsh" "git.io/antigen"
