@@ -2,6 +2,8 @@
 
 ## devnotes
 
+`wget -O "$out" "$src"`
+
 - symlinks
   - files and folders in home gets synlinked to `$HOME`
 - dependencies

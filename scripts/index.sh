@@ -2,4 +2,8 @@
 set -e
 
 currdir="$(dirname -- ${BASH_SOURCE[0]})"
-source "$currdir/dl/index.sh"
+
+"$currdir/deps/index.sh"
+"$currdir/git.sh"
+"$currdir/zsh.sh"
+"$currdir/asdf.sh"
