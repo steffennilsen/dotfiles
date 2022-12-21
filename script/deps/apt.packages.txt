@@ -10,4 +10,3 @@ software-properties-common
 unzip
 wget
 zsh
-zsh-antigen

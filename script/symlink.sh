@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 abs_script_path="$( cd -- "$(dirname ${BASH_SOURCE[0]})" >/dev/null 2>&1 ; pwd -P )"
@@ -13,6 +13,6 @@ files=$(ls -a --ignore={".","..","script",".gitignore","*.md"} "$parent_folder" 
 for file in $files; do
     name="$(basename $file)"
     
-    [[ -f "$HOME/$name" ]] && rm -rf "$HOME/$name"
+    [ -f "$HOME/$name" ] && rm -rf "$HOME/$name"
     ln -s "$parent_folder/$name" "$HOME/$name"
 done

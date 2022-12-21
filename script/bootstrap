@@ -4,6 +4,10 @@ set -e
 currdir="$(dirname -- ${BASH_SOURCE[0]})"
 echo "Installing dotfiles env"
 
+if [ ! -d "$HOME/bin" ]; then
+    mkdir "$HOME/bin"
+fi
+
 "$currdir/symlink.sh"
 
 "$currdir/deps/index.sh"
