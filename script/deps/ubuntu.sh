@@ -7,7 +7,9 @@ if [[ ! -x "$(command -v apt)" ]]; then
 fi
 
 apt update
-apt install -y wget curl coreutils software-properties-common python3
+apt install -y coreutils gawk sed
+apt install -y python3
+apt install -y wget curl software-properties-common
 apt install -y zsh zsh-antigen
 
 # ubuntu often have an old version of git
