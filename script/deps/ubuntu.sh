@@ -6,12 +6,12 @@ if [ ! -x "$(command -v apt)" ]; then
     exit 1
 fi
 
-currdir="$(dirname -- ${BASH_SOURCE[0]})"
-files=$(grep -vE "^\s*#" "${currdir}/apt.packages.txt"  | tr "\n" " ")
+currdir="$(dirname -- $0)"
 
 sudo /bin/sh<<EOF
 apt update
 apt install -y "$(files)"
+xargs apt install -y < "$currdir/apt.packages.txt"
 EOF
 
 # ubuntu often have an old version of git
