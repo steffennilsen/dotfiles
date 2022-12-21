@@ -11,9 +11,8 @@ files=$(ls -a --ignore={".","..","script",".gitignore","*.md"} "$parent_folder" 
 
 # Create a symbolic link to each file in the home directory.
 for file in $files; do
-    name=$(basename $file)
-
-    echo "Creating symlink to $name in home directory."
-    if [[ -f "$HOME/$name" ]] && rm -rf "$HOME/$name"
-    ln -s "$parent_folder/$name" "~/$name"
+    name="$(basename $file)"
+    
+    [[ -f "$HOME/$name" ]] && rm -rf "$HOME/$name"
+    ln -s "$parent_folder/$name" "$HOME/$name"
 done
