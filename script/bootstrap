@@ -1,17 +1,18 @@
 #!/bin/bash
 set -e
 
-currdir="$(dirname -- ${BASH_SOURCE[0]})"
+script_path="$( cd -- "$(dirname ${BASH_SOURCE[0]})" >/dev/null 2>&1 ; pwd -P )"
+root="${script_path%/*}"
 echo "Installing dotfiles env"
 
 if [ ! -d "$HOME/bin" ]; then
     mkdir "$HOME/bin"
 fi
 
-"$currdir/symlink.sh"
+"$script_path/symlink.sh" "$root"
 
-"$currdir/deps/index.sh"
-"$currdir/git.sh"
-"$currdir/zsh.sh"
-"$currdir/asdf.sh"
+"$script_path/deps/index.sh"
+"$script_path/git.sh"
+"$script_path/zsh.sh"
+"$script_path/asdf.sh"
 

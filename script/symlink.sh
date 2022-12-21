@@ -1,10 +1,9 @@
 #!/bin/sh
 set -e
 
-abs_script_path="$( cd -- "$(dirname ${BASH_SOURCE[0]})" >/dev/null 2>&1 ; pwd -P )"
-parent_folder="${abs_script_path%/*}"
+# $1 root path
 
-files=$(ls -a --ignore={".","..","script",".gitignore","*.md"} "$parent_folder" \
+files=$(ls -a --ignore={".","..","script",".gitignore","*.md"} "$1" \
     | tr " " "\n" \
     | sed -e "s/^/.\//" \
     )
@@ -14,5 +13,5 @@ for file in $files; do
     name="$(basename $file)"
     
     [ -f "$HOME/$name" ] && rm -rf "$HOME/$name"
-    ln -s "$parent_folder/$name" "$HOME/$name"
+    ln -s "$1/$name" "$HOME/$name"
 done
