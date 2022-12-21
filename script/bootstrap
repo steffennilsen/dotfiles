@@ -1,9 +1,17 @@
 #!/bin/bash
-# inspired by https://github.com/bstollnitz/dotfiles/blob/main/install.sh
 set -e
 
-# these bootstrap scripts do set ENVs and must be sourced
-source ./scripts/index.sh
+currdir="$(dirname -- ${BASH_SOURCE[0]})"
+echo "Installing dotfiles env"
+
+"$currdir/symlink.sh"
+
+"$currdir/deps/index.sh"
+"$currdir/git.sh"
+"$currdir/zsh.sh"
+"$currdir/asdf.sh"
+
+
 
 # create_symlinks() {
 #     # Get the directory in which this script lives.
