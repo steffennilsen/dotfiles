@@ -11,8 +11,8 @@ fi
 
 "$script_path/symlink.sh" "$root"
 
-"$script_path/deps/index.sh"
-"$script_path/git.sh"
-"$script_path/zsh.sh"
-"$script_path/asdf.sh"
+# "$script_path/deps/index.sh"
+# "$script_path/git.sh"
+# "$script_path/zsh.sh"
+# "$script_path/asdf.sh"
 
