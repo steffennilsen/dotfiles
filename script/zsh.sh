@@ -10,4 +10,3 @@ if [[ -z "cat /etc/shells | grep $(which zsh)" ]]; then
 fi
 
 currdir="$(dirname -- ${BASH_SOURCE[0]})"
-"$currdir/deps/antigen.sh"
