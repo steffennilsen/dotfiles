@@ -9,4 +9,4 @@ if [[ -z "cat /etc/shells | grep $(which zsh)" ]]; then
     sudo echo "$(which zsh)" >> /etc/shells
 fi
 
-wget "$HOME/bin/antigen.zsh" "git.io/antigen"
+wget -O "$HOME/bin/antigen.zsh" "git.io/antigen"
