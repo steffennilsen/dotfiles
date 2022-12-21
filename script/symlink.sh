@@ -5,10 +5,6 @@ set -e
 
 files=$(ls -a "$1" | grep -v -E "^[\.{1,2}|\.git|\.gitignore|script|readme.md]*$")
 
-# while IFS= read -r file; do
-#     echo "... $file ..."
-# done <<< "$files"
-
 # Create a symbolic link to each file in the home directory.
 for file in "$files"; do
     name=$(echo $file | tr -d "\n")
