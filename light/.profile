@@ -15,4 +15,4 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # aliases
-alias sudop='sudo -i env PATH=$PATH HOME=$HOME'
+alias sudop='sudo env PATH=$PATH HOME=$HOME'

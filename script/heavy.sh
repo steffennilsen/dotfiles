@@ -2,7 +2,6 @@
 # $1 -- dotfiles root dir
 set -e
 
-echo "$HOME"
 echo 'installing dotfiles -- heavy'
 
 # check if root
@@ -21,9 +20,8 @@ fi
 echo 'symlinking heavy dotfiles'
 files=$(ls -a "$1/heavy" -I '.' -I '..')
 echo "$files" | tr ' ' '\n' | while read file; do
-  echo "$file"
   [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
-  ln -s "${1}/heavy/${file}" "$HOME/$file"
+  ln -s "$1/heavy/$file" "$HOME/$file"
 done
 
 # more setup
