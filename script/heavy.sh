@@ -2,8 +2,8 @@
 # $1 -- dotfiles root dir
 set -e
 
+echo "$HOME"
 echo 'installing dotfiles -- heavy'
-heavy="$1/script/heavy"
 
 # check if root
 if [ "$(id -u)" -ne 0 ]; then
@@ -13,17 +13,18 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # installing base deps - prefferably from distro package manager
-"$heavy/distro.sh" "$1"
+# "$heavy/distro.sh" "$1"
 
 # config git
 "$1/script/git.sh"
 
 echo 'symlinking heavy dotfiles'
-files=$(ls -a "$heavy" -I '.' -I '..')
+files=$(ls -a "$1/heavy" -I '.' -I '..')
 echo "$files" | tr ' ' '\n' | while read file; do
+  echo "$file"
   [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
-  ln -s "$heavy/$file" "$HOME/$file"
+  ln -s "${1}/heavy/${file}" "$HOME/$file"
 done
 
 # more setup
-"$heavy/zsh.sh"
+"$1/script/heavy/zsh.sh"

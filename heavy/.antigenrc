@@ -1,0 +1,17 @@
+#!/bin/zsh
+set -e
+
+antigen use oh-my-zsh
+
+antigen bundle git
+antigen bundle command-not-found
+antigen bundle docker
+
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle kiurchv/asdf.plugin.zsh
+
+antigen theme denysdovhan/spaceship-prompt
+
+antigen apply
