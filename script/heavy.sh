@@ -26,3 +26,4 @@ done
 
 # more setup
 "$1/script/heavy/zsh.sh"
+"$1/script/heavy/asdf.sh"
