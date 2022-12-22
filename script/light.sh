@@ -2,11 +2,11 @@
 # $1 -- dotfiles root dir
 set -e
 
-echo "installing dotfiles -- light"
+echo 'installing dotfiles -- light'
 
 light_watermark="$HOME/.config/dotfiles/installed-light"
 if [ -f "$light_watermark" ]; then
-  echo "dotfiles light install is already installed"
+  echo 'dotfiles light install is already installed'
   echo "remove $light_watermark to rerun this script"
   exit 0
 fi
@@ -31,4 +31,4 @@ echo "$files" | tr ' ' '\n' | while read file; do
 done
 
 touch "$light_watermark"
-echo "dotfiles are installed"
+echo 'dotfiles are installed'
