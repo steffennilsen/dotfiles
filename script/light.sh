@@ -31,6 +31,9 @@ echo "$files" | tr ' ' '\n' | while read file; do
   ln -s "$light/$file" "$HOME/$file"
 done
 
+# config git
+"$1/script/git.sh"
+
 echo 'creating heavy install script'
 echo "\"$1/script/heavy.sh\" \"$1\"" > "$HOME/bin/dotfiles-install-heavy.sh"
 chmod u+x "$HOME/bin/dotfiles-install-heavy.sh"
@@ -38,3 +41,4 @@ chmod u+x "$HOME/bin/dotfiles-install-heavy.sh"
 # watermark install and exit
 touch "$light_watermark"
 echo 'dotfiles are installed'
+echo 'use dotfiles-install-heavy.sh to set up a full environment'
