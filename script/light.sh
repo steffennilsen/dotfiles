@@ -4,6 +4,7 @@ set -e
 
 echo 'installing dotfiles -- light'
 
+# check for watermark
 light_watermark="$HOME/.config/dotfiles/installed-light"
 if [ -f "$light_watermark" ]; then
   echo 'dotfiles light install is already installed'
@@ -11,18 +12,18 @@ if [ -f "$light_watermark" ]; then
   exit 0
 fi
 
-# make sure certain directories exist
 makedir() {
   [ ! -d "$1" ] && mkdir "$1" || true
 }
 
+echo 'making sure certain directories exist'
 makedir "$HOME/.config"
 makedir "$HOME/.config/dotfiles"
 makedir "$HOME/.local"
 makedir "$HOME/.local/bin"
 makedir "$HOME/bin"
 
-# symlink light files
+echo 'symlinking light dotfiles'
 light="$1/light"
 files=$(ls -a "$light" -I '.' -I '..')
 echo "$files" | tr ' ' '\n' | while read file; do
@@ -30,5 +31,10 @@ echo "$files" | tr ' ' '\n' | while read file; do
   ln -s "$light/$file" "$HOME/$file"
 done
 
+echo 'creating heavy install script'
+echo "\"$1/script/heavy.sh\" \"$1\"" > "$HOME/bin/dotfiles-install-heavy.sh"
+chmod u+x "$HOME/bin/dotfiles-install-heavy.sh"
+
+# watermark install and exit
 touch "$light_watermark"
 echo 'dotfiles are installed'

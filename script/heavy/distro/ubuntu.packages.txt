@@ -1,0 +1,14 @@
+apt
+coreutils
+curl
+gawk
+less
+lsb-release
+nano
+python3
+sed
+software-properties-common
+unzip
+wget
+zip
+zsh
