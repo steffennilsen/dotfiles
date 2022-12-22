@@ -1,1 +1,1 @@
-. "$HOME/.profile"
+. "$HOME/.env"
