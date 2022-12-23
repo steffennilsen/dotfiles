@@ -7,14 +7,14 @@ root="$(dirname "$(dirname "$(readlink -fm "$0")")")"
 # check for watermark
 light_watermark="$HOME/.config/dotfiles/installed-light"
 if [ -f "$light_watermark" ]; then
-  echo 'dotfiles light is already installed'
+  echo 'light dotfiles are already installed'
   echo "remove $light_watermark to rerun this script"
   exit 0
 fi
 
 heavy_watermark="$HOME/.config/dotfiles/installed-heavy"
 if [ -f "$heavy_watermark" ]; then
-  echo 'dotfiles heavy is already installed'
+  echo 'heavy dotfiles are already installed'
   echo "remove $heavy_watermark to rerun this script"
   exit 0
 fi

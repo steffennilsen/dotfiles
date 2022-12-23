@@ -13,7 +13,7 @@ fi
 
 heavy_watermark="$HOME/.config/dotfiles/installed-heavy"
 if [ -f "$heavy_watermark" ]; then
-  echo 'dotfiles heavy is already installed'
+  echo 'heavy dotfiles are already installed'
   echo "remove $heavy_watermark to rerun this script"
   exit 0
 fi
