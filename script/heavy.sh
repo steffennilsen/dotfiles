@@ -1,8 +1,23 @@
 #!/bin/sh
-# $1 -- dotfiles root dir
 set -e
 
 echo 'installing dotfiles -- heavy'
+root="$(dirname "$(dirname "$(readlink -fm "$0")")")"
+echo "$root"
+
+# check for watermark
+light_watermark="$HOME/.config/dotfiles/installed-light"
+if [ ! -f "$light_watermark" ]; then
+  echo 'light dotfiles needs to be installed first'
+  exit 0
+fi
+
+heavy_watermark="$HOME/.config/dotfiles/installed-heavy"
+if [ -f "$heavy_watermark" ]; then
+  echo 'dotfiles heavy is already installed'
+  echo "remove $heavy_watermark to rerun this script"
+  exit 0
+fi
 
 # check if root
 if [ "$(id -u)" -ne 0 ]; then
@@ -12,18 +27,22 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # installing base deps - prefferably from distro package manager
-# "$heavy/distro.sh" "$1"
+"$root/script/heavy/distro.sh" "$root"
 
 # config git
-"$1/script/git.sh"
+"$root/script/git.sh"
 
 echo 'symlinking heavy dotfiles'
-files=$(ls -a "$1/heavy" -I '.' -I '..')
+files=$(ls -a "$root/heavy" -I '.' -I '..')
 echo "$files" | tr ' ' '\n' | while read file; do
   [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
-  ln -s "$1/heavy/$file" "$HOME/$file"
+  ln -s "$root/heavy/$file" "$HOME/$file"
 done
 
 # more setup
-"$1/script/heavy/zsh.sh"
-"$1/script/heavy/asdf.sh"
+"$root/script/heavy/zsh.sh"
+"$root/script/heavy/asdf.sh"
+
+# watermark install and exit
+touch "$heavy_watermark"
+echo 'heavy dotfiles are installed'

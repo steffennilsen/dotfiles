@@ -7,20 +7,25 @@ echo 'installing dotfiles -- light'
 # check for watermark
 light_watermark="$HOME/.config/dotfiles/installed-light"
 if [ -f "$light_watermark" ]; then
-  echo 'dotfiles light install is already installed'
+  echo 'dotfiles light is already installed'
   echo "remove $light_watermark to rerun this script"
   exit 0
 fi
 
+heavy_watermark="$HOME/.config/dotfiles/installed-heavy"
+if [ -f "$heavy_watermark" ]; then
+  echo 'dotfiles heavy is already installed'
+  echo "remove $heavy_watermark to rerun this script"
+  exit 0
+fi
+
+echo 'making sure certain directories exist'
 makedir() {
   [ ! -d "$1" ] && mkdir "$1" || true
 }
 
-echo 'making sure certain directories exist'
 makedir "$HOME/.config"
 makedir "$HOME/.config/dotfiles"
-makedir "$HOME/.local"
-makedir "$HOME/.local/bin"
 makedir "$HOME/bin"
 
 echo 'symlinking light dotfiles'
@@ -34,11 +39,10 @@ done
 # config git
 "$1/script/git.sh"
 
-echo 'creating heavy install script'
-echo "\"$1/script/heavy.sh\" \"$1\"" > "$HOME/bin/dotfiles-install-heavy.sh"
-chmod u+x "$HOME/bin/dotfiles-install-heavy.sh"
+echo 'symlinking heavy install script'
+[ ! -f "$1/script/heavy.sh" ] && ln -s "$1/script/heavy.sh" "$HOME/bin/dotfiles-install-heavy.sh"
 
 # watermark install and exit
 touch "$light_watermark"
-echo 'dotfiles are installed'
+echo 'light dotfiles are installed'
 echo 'use dotfiles-install-heavy.sh to set up a full environment'
