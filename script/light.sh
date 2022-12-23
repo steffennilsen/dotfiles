@@ -44,6 +44,5 @@ echo 'symlinking heavy install script'
 
 # watermark install and exit
 touch "$light_watermark"
-chmod a+rw "$light_watermark"
 echo 'light dotfiles are installed'
 echo 'use dotfiles-install-heavy.sh to set up a full environment'
