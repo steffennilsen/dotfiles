@@ -3,7 +3,6 @@ set -e
 
 echo 'installing dotfiles -- heavy'
 root="$(dirname "$(dirname "$(readlink -fm "$0")")")"
-echo "$root"
 
 # check for watermark
 light_watermark="$HOME/.config/dotfiles/installed-light"
@@ -45,4 +44,5 @@ done
 
 # watermark install and exit
 touch "$heavy_watermark"
+chmod a+rw "$heavy_watermark"
 echo 'heavy dotfiles are installed'

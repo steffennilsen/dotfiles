@@ -1,8 +1,8 @@
 #!/bin/sh
-# $1 -- dotfiles root dir
 set -e
 
 echo 'installing dotfiles -- light'
+root="$(dirname "$(dirname "$(readlink -fm "$0")")")"
 
 # check for watermark
 light_watermark="$HOME/.config/dotfiles/installed-light"
@@ -29,7 +29,7 @@ makedir "$HOME/.config/dotfiles"
 makedir "$HOME/bin"
 
 echo 'symlinking light dotfiles'
-light="$1/light"
+light="$root/light"
 files=$(ls -a "$light" -I '.' -I '..')
 echo "$files" | tr ' ' '\n' | while read file; do
   [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
@@ -37,12 +37,13 @@ echo "$files" | tr ' ' '\n' | while read file; do
 done
 
 # config git
-"$1/script/git.sh"
+"$root/script/git.sh"
 
 echo 'symlinking heavy install script'
-[ ! -f "$1/script/heavy.sh" ] && ln -s "$1/script/heavy.sh" "$HOME/bin/dotfiles-install-heavy.sh"
+[ ! -f "$root/script/heavy.sh" ] && ln -s "$root/script/heavy.sh" "$HOME/bin/dotfiles-install-heavy.sh"
 
 # watermark install and exit
 touch "$light_watermark"
+chmod a+rw "$light_watermark"
 echo 'light dotfiles are installed'
 echo 'use dotfiles-install-heavy.sh to set up a full environment'
