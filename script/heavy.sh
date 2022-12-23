@@ -32,11 +32,7 @@ fi
 "$root/script/git.sh"
 
 echo 'symlinking heavy dotfiles'
-files=$(ls -a "$root/heavy" -I '.' -I '..')
-echo "$files" | tr ' ' '\n' | while read file; do
-  [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
-  ln -s "$root/heavy/$file" "$HOME/$file"
-done
+"$root/script/symlink.sh" "$root" "$root/heavy"
 
 # more setup
 "$root/script/heavy/zsh.sh"

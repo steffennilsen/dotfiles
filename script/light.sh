@@ -29,12 +29,7 @@ makedir "$HOME/.config/dotfiles"
 makedir "$HOME/bin"
 
 echo 'symlinking light dotfiles'
-light="$root/light"
-files=$(ls -a "$light" -I '.' -I '..')
-echo "$files" | tr ' ' '\n' | while read file; do
-  [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
-  ln -s "$light/$file" "$HOME/$file"
-done
+"$root/script/symlink.sh" "$root" "$root/light"
 
 # config git
 "$root/script/git.sh"
