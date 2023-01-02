@@ -35,7 +35,7 @@ makedir "$HOME/bin"
 echo 'symlinking'
 "$root/script/symlink.sh" "$root/light" "$HOME"
 "$root/script/symlink.sh" "$root/light/bin" "$HOME/bin"
-[ ! -f "$root/script/heavy.sh" ] && ln -s "$root/script/heavy.sh" "$HOME/bin/dotfiles-install-heavy.sh"
+[ ! -f "$HOME/bin/dotfiles-install-heavy.sh" ] && ln -s "$root/script/heavy.sh" "$HOME/bin/dotfiles-install-heavy.sh"
 
 # appending to .bashrc
 # "$root/script/append_if_not_present.sh" '. $HOME/.env # DOTFILES' "$HOME/.bashrc"
