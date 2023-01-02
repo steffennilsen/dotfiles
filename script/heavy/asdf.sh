@@ -13,10 +13,10 @@ fi
 PATH="$HOME/.asdf/bin:$PATH"
 
 echo "installing asdf plugins"
-[ -z 'asdf plugin list | grep nodejs' ] && asdf plugin add nodejs
+asdf plugin add nodejs
 
 echo 'installing asdf frameworks'
-[ -z "asdf list nodejs | grep $default_nodejs_version" ] && asdf install nodejs "$default_nodejs_version"
+asdf install nodejs "$default_nodejs_version"
 
 echo 'setting asdf globals'
 asdf global nodejs "$default_nodejs_version"
