@@ -28,13 +28,12 @@ makedir "$HOME/.config"
 makedir "$HOME/.config/dotfiles"
 makedir "$HOME/bin"
 
-echo 'symlinking light dotfiles'
-"$root/script/symlink.sh" "$root" "$root/light"
 
 # config git
 "$root/script/git.sh"
 
 echo 'symlinking'
+"$root/script/symlink.sh" "$root/light" "$HOME"
 "$root/script/symlink.sh" "$root/light/bin" "$HOME/bin"
 [ ! -f "$root/script/heavy.sh" ] && ln -s "$root/script/heavy.sh" "$HOME/bin/dotfiles-install-heavy.sh"
 
