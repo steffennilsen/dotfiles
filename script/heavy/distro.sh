@@ -8,7 +8,7 @@ kernel_version="$(uname -v)"
 # expand as needed
 case $kernel_version in
     *"Ubuntu"*)
-        "sudop $distro_dir/ubuntu.sh"
+        sudop "$distro_dir/ubuntu.sh"
         ;;
     *)
         echo "Unable to install determine distro" >&2
