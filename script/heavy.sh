@@ -19,9 +19,8 @@ if [ -f "$heavy_watermark" ]; then
 fi
 
 # check if root
-if [ "$(id -u)" -ne 0 ]; then
-  echo 'this script requires root access to install files' >&2
-  echo 'use sudo or sudop'
+if [ "$(id -u)" -eq 0 ]; then
+  echo 'dont run as root' >&2
   exit 1
 fi
 
