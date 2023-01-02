@@ -32,7 +32,7 @@ fi
 "$root/script/git.sh"
 
 echo 'symlinking heavy dotfiles'
-"$root/script/symlink.sh" "$root" "$root/heavy"
+"$root/script/symlink.sh" "$root/heavy" "$HOME"
 
 # more setup
 "$root/script/heavy/zsh.sh"

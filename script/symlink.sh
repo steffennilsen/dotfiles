@@ -1,10 +1,10 @@
 #!/bin/sh
-# $1 -- dotfiles root dir
-# $2 -- symlink src dir
+# $1 -- src
+# $2 -- target
 set -e
 
-files=$(ls -a "$2" -I '.' -I '..')
+files=$(ls -a "$1" -I '.' -I '..' -I 'bin')
 echo "$files" | while read file; do
-  [ -f "$HOME/$file" ] && rm -r "$HOME/$file"
-  ln -s "$2/$file" "$HOME/$file"
+  [ -f "$2/$file" ] && rm -r "$2/$file"
+  ln -s "$1/$file" "$2/$file"
 done
