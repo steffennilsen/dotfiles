@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+# start ssh agent
+eval "$(ssh-agent -s)" >/dev/null
+
+ssh_folder="$HOME/.ssh"
+# files=$(ls -a "$ssh_folder" -I '.' -I '..' -I '*.pub')
+files=$(ls -a "$ssh_folder" -I '.' -I '..' -I '*.pub' | grep -E '\.ed25519$')
+echo "$files" | while read file; do
+  ssh-add "$ssh_folder/$file"
+done
