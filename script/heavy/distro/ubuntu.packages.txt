@@ -3,6 +3,7 @@ coreutils
 curl
 gawk
 less
+libnss3-tools
 lsb-release
 nano
 python3

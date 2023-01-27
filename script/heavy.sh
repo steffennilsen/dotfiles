@@ -34,6 +34,7 @@ echo 'symlinking heavy dotfiles'
 "$root/script/symlink.sh" "$root/heavy" "$HOME"
 
 # more setup
+"$root/script/heavy/misc.sh"
 "$root/script/heavy/zsh.sh"
 "$root/script/heavy/asdf.sh"
 
