@@ -1,0 +1,19 @@
+theme = "dracula"
+
+[editor]
+mouse = false
+true-color = true
+rulers = [80, 120]
+text-width = 120
+
+[editor.indent-guides]
+render = true
+skip-levels = 0
+
+[editor.inline-diagnostics]
+cursor-line = "error"
+other-lines = "warning"
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
