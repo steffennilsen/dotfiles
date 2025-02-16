@@ -16,25 +16,24 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+_addpath() {  
+    if [ -d "$1" ]; then
+        PATH="$1:$PATH"
+    fi
+}
 
-# ASDF shims
-if [ -d "$HOME/.asdf/shims" ]; then
-    PATH="$HOME/.asdf/shims:$PATH"
-fi
+_addpath "$HOME/.local/bin"
+_addpath "$HOME/.asdf/shims"
 
-EDITOR="vi"
-VISUAL="vi"
+_priorityifbinonpath() {  
+    while [ -n "$1" ]; do
+      if [ -x "$(whereis -b $1 | awk '{print $2}')" ]; then
+        _var="$1"
+      fi
+      shift
+    done
+    echo $_var
+}
 
-if [ -x "$(whereis -b nano | awk '{print $2}')" ]; then
-    EDITOR="nano"
-    VISUAL="nano"
-fi
-
-if [ -x "$(whereis -b hx | awk '{print $2}')" ]; then
-    EDITOR="hx"
-    VISUAL="hx"
-fi
+export EDITOR="$(_priorityifbinonpath vi nano hx)"
+export VISUAL="$(_priorityifbinonpath vi nano hx)"

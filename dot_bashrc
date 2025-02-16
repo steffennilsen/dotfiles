@@ -85,6 +85,7 @@ OMB_USE_SUDO=true
 # Add wisely, as too many completions slow down shell startup.
 completions=(
   asdf
+  chezmoi
   docker
   git
   ssh
@@ -104,6 +105,7 @@ aliases=(
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   asdf
+  chezmoi
   git
   bashmarks
 )
