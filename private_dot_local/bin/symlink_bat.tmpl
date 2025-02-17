@@ -1,5 +1,3 @@
-# debian and ubuntu has a naming conflict for bat
-# https://github.com/sharkdp/bat?tab=readme-ov-file#on-ubuntu-using-apt
-{{- if (and (eq .chezmoi.os "linux") (eq (.chezmoi | jq ".osRelease.id" | first) "debian" "ubuntu")) }}
+{{- if (and (eq .chezmoi.os "linux") (eq (.chezmoi | jq ".osRelease.id" | first) "debian" "ubuntu") (findExecutable "batcat" (list "/usr/bin"))) }}
 /usr/bin/batcat
 {{- end }}
