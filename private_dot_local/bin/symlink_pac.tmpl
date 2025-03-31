@@ -1,0 +1,3 @@
+{{- if findExecutable "pac" (list (joinPath .chezmoi.homeDir "/.dotnet/tools")) }}
+{{ joinPath .chezmoi.homeDir ".dotnet/tools/pac" }}
+{{- end }}
