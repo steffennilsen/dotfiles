@@ -3,3 +3,5 @@
 	name = steffen nilsen
 [init]
 	defaultBranch = master
+[credential]
+	helper = cache

@@ -11,14 +11,12 @@ if [ ! "$(id -u)" -eq 0 ] && [ -n "$(groups | grep -o sudo)" ]; then
   PATH="$PATH:/usr/local/sbin:/usr/sbin:/sbin"
 fi
 
-_addpath() {
-    if [ -d "$1" ]; then
-        PATH="$1:$PATH"
-    fi
-}
-
-_addpath "$HOME/.local/bin"
-_addpath "$HOME/.asdf/shims"
+{{ $homeDir := .chezmoi.homeDir }}
+{{- $paths := list ".local/bin" ".asdf/shims" -}}
+{{- range $index, $value := $paths -}}
+{{- $path := (joinPath $homeDir $value) -}}
+PATH="{{ $path }}:$PATH"
+{{ end }}
 
 _priorityifbinonpath() {
     while [ -n "$1" ]; do
