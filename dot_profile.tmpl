@@ -14,7 +14,7 @@ fi
 {{ $homeDir := .chezmoi.homeDir }}
 {{- $paths := list ".local/bin" ".asdf/shims" -}}
 {{- range $index, $value := $paths -}}
-{{- $path := (joinPath $homeDir $value) -}}
+{{$path := (joinPath $homeDir $value) -}}
 PATH="{{ $path }}:$PATH"
 {{ end }}
 

@@ -1,0 +1,9 @@
+{{ $homerelpath := "/" -}}
+{{ $ps := "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" -}}
+{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") (.chezmoi.kernel.osrelease | lower | contains "wsl") (stat $ps) -}}
+{{   $userpath := trim (output $ps "$env:USERPROFILE") -}}
+{{   $drive := lower (substr 0 1 $userpath) -}}
+{{   $userdir := replace "\\" "/" (regexFind "\\\\.*$" $userpath) -}}
+{{   $file := join "" (list "/mnt/" $drive $userdir $homerelpath) -}}
+{{   if (stat $file) }}{{ $file }}{{ end }}
+{{ end -}}
