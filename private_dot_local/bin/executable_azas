@@ -1,0 +1,88 @@
+#!/bin/sh
+
+# azas.sh - Interactive Azure subscription selector with caching
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/azas"
+CACHE_FILE="$CACHE_DIR/subscriptions"
+TTL=86400  # Default TTL: 24 hours
+INVALIDATE_CACHE=0
+
+# ----------------------------- helper functions ----------------------------- #
+print_help() {
+  cat <<EOF
+Usage: $(basename "$0") [QUERY]
+
+Interactive Azure subscription selector with caching
+
+Arguments:
+  QUERY       Optional string to pre-fill fzf search
+
+Options:
+  -t TTL      Set cache time-to-live in seconds (default: 86400 = 24h)
+  -i          Invalidate cache and fetch fresh subscriptions
+  -h          Show this help message
+
+Examples:
+  $(basename "$0") prod
+  $(basename "$0") -t 3600
+  $(basename "$0") -i
+EOF
+}
+
+cache_subscriptions() {
+    mkdir -p "$CACHE_DIR"
+    
+    if [ "$INVALIDATE_CACHE" -eq 1 ]; then
+        echo "Invalidating cache..."
+        if [ -f "$CACHE_FILE" ]; then
+            rm -f "$CACHE_FILE"
+        fi
+    fi
+    
+    NOW=$(date +%s)
+    if [ -f "$CACHE_FILE" ]; then
+        MODIFIED=$(stat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE")
+        AGE=$((NOW - MODIFIED))
+    else
+        AGE=$TTL
+    fi
+    
+    if [ "$INVALIDATE_CACHE" -eq 1 ] || [ "$AGE" -ge "$TTL" ]; then
+        echo "Caching: $CACHE_FILE"
+        sublist=$(az account list --query "[].{name:name, id:id}" -o tsv | sort | column -t | nl)
+        printf "%s\n" "$sublist" >| "$CACHE_FILE"
+    fi
+}
+
+# ------------------------------- parse options ------------------------------ #
+while getopts "t:ih" opt; do
+    case $opt in
+        t) TTL="$OPTARG" ;;
+        i) INVALIDATE_CACHE=1 ;;
+        h)
+            print_help
+            exit 0
+        ;;
+        *) ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+QUERY="$1"
+
+# ---------------------------- check dependencies ---------------------------- #
+command -v az >/dev/null 2>&1 || { echo "Error: az cli not found"; exit 1; }
+command -v fzf >/dev/null 2>&1 || { echo "Error: fzf not found"; exit 1; }
+
+# ----------------------------------- cache ---------------------------------- #
+cache_subscriptions
+SUBSCRIPTIONS=$(cat <"$CACHE_FILE")
+
+# ---------------------------------- run fzf --------------------------------- #
+SUBSCRIPTION=$(printf "%s\n" "$SUBSCRIPTIONS" | fzf --height 15 ${QUERY:+--query="$QUERY"} | cut -f2- | awk '{print $1}' | xargs)
+
+# ----------------------------- set subscription ----------------------------- #
+if [ -n "$SUBSCRIPTION" ]; then
+    az account set --subscription "$SUBSCRIPTION"
+    echo "Subscription set to: $SUBSCRIPTION"
+fi
