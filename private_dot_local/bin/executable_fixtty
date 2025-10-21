@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# attempt to fix terminal
+stty sane
+reset
+tput cnorm
+
+#\033c is the ANSI "Full Reset" (also called RIS: Reset to Initial State).
+echo -e "\033c"
+clear
+
+echo "Attempted to reset terminal state"

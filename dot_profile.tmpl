@@ -18,15 +18,6 @@ fi
 PATH="{{ $path }}:$PATH"
 {{ end }}
 
-_priorityifbinonpath() {
-    while [ -n "$1" ]; do
-      if [ -x "$(whereis -b $1 | awk '{print $2}')" ]; then
-        _var="$1"
-      fi
-      shift
-    done
-    echo $_var
-}
-
-export EDITOR="$(_priorityifbinonpath vi nano hx)"
-export VISUAL="$(_priorityifbinonpath vi nano hx)"
+# set default editor
+export EDITOR=$(for cmd in hx nano vi; do command -v "$cmd" && echo "$cmd" && break; done)
+export VISUAL="$EDITOR"

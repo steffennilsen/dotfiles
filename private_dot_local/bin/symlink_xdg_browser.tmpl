@@ -1,0 +1,5 @@
+{{ $ps := "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" -}}
+{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") (.chezmoi.kernel.osrelease | lower | contains "wsl") (stat $ps) -}}
+{{   $file := "/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" -}}
+{{   if (stat $file) }}{{ $file }}{{ end }}
+{{ end -}}

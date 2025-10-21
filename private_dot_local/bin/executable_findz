@@ -1,0 +1,6 @@
+#!/bin/sh
+rootpath="${1:-.}"
+pattern="${2:-*}"
+
+find "$rootpath" -type f -name "$pattern" 2>/dev/null | \
+fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'
