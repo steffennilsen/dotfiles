@@ -4,4 +4,4 @@
 [init]
 	defaultBranch = master
 [credential]
-	helper = cache
+	helper = cache --timeout=604800
